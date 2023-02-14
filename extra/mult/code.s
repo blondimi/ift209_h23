@@ -54,7 +54,7 @@ prochain:                               //     }
 fin:                                    //
     adr     x0, fmtSortie               //
     mov     w1, w21                     //
-    bl      printf                      //   printf(fmtSortie, c)
+    bl      printf                      //   printf(fmtSortie, (int32)c)
                                         //
     mov     x0, 0                       //
     bl      exit                        // }
