@@ -1,8 +1,8 @@
 .global main
 
 /* Usage des registres:
-    x19 -- a    x21 -- c ou acc    x27 -- constantes
-    x20 -- b    x22 -- i           x28 -- pour adressage */
+    x19 -- a    x21 -- c    x27 -- constantes
+    x20 -- b    x22 -- i    x28 -- pour adressage */
 main:                                   // main()
     // Lire a                           // {
     adr     x0, fmtEntree               //
@@ -38,14 +38,14 @@ afficher:                               //   }
                                         //
     // Produit                          //
 produit:                                //
-    mov     x21, 0                      //   uint64 acc = 0
-    mov     x22, 0                      //   uint64   i = 0
+    mov     x21, 0                      //   uint64 c = 0
+    mov     x22, 0                      //   uint64 i = 0
     mov     x27, 2                      //
 boucle:                                 //
     cmp     x22, 32                     //   while (i != 32)
     b.eq    fin                         //   {
     tbz     x20, 0, prochain            //     if (a % 2 != 0) {
-    add     x21, x21, x19               //       acc += a
+    add     x21, x21, x19               //       c += a
 prochain:                               //     }
     add     x19, x19, x19               //     a *= 2
     udiv    x20, x20, x27               //     b /= 2
@@ -54,7 +54,7 @@ prochain:                               //     }
 fin:                                    //
     adr     x0, fmtSortie               //
     mov     w1, w21                     //
-    bl      printf                      //   printf(fmtSortie, acc)
+    bl      printf                      //   printf(fmtSortie, c)
                                         //
     mov     x0, 0                       //
     bl      exit                        // }
