@@ -86,3 +86,6 @@ Après l'exécution, nous obtenons ce contenu:
 | 0 | 0 | **1** | 0 | 0 |
 
 Notons que la jonction contenait déjà 1, donc la première itération écrase ce 1 par un autre 1 (ce qui est inutile mais pas bien grave).
+
+***Le solutionnaire utilise l'adresse _a + (n - 1)_ pour la jonction, ce qui est équivalent, car  _2·(n ÷ 2) = n - 1_ lorsque _n_ est impair.***
+
