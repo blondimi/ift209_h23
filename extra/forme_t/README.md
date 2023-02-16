@@ -1,6 +1,6 @@
 # Mettre un tableau en forme de T
 
-Rappelons que la question 6 de l'examen périodique de 2023 porte sur les tableaux _m_ × _n_ en _forme de T_, comme celui-ci:
+Rappelons que la question 6 de l'examen périodique de 2022 porte sur les tableaux _m_ × _n_ en _forme de T_, comme celui-ci:
 
 | 1 | 1 | *1* | 1 | 1 |
 |---|---|---|---|---|
