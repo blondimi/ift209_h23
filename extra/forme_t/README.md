@@ -12,7 +12,7 @@ Rappelons que la question 6 de l'examen périodique de 2022 porte sur les tablea
 
 Supposons que chaque élément du tableau soit stocké sur _k_ octets et que le tableau débute à l'adresse _a_.
 La jonction du T, c.-à-d. le premier élément de la colonne du centre, se situe à l'adresse _a + k · (n ÷ 2)_.
-Par exemple, dans l'exemple ci-dessus, où _m = 4_ et _n = 5_, les adresses sont comme suit:
+Par exemple, dans le cas particulier ci-dessus, où _m = 4_ et _n = 5_, les adresses sont comme suit:
 
 | _a_ | _a+k_ | _a+2k_ | _a+3k_ | _a+4k_ |
 |:--|:--|:--|:--|:--|
