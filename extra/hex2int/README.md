@@ -1,5 +1,3 @@
-_En construction..._
-
 # D'un caractère hexadécimal vers sa valeur numérique
 
 Supposons que `w19` contienne le code ASCII d'un caractère parmi {`0`, ..., `9`, `A`, ..., `F`}.
@@ -29,7 +27,7 @@ Par exemple, `9` est représenté par 0011**1001** et vaut en effet 1001₂ = 9.
      and  w20, w19, 0x0F
 ```
 
-# A à F
+## A à F
 
 Les caractrères `A` à `F` sont représentés comme suit:
 
@@ -50,7 +48,7 @@ Par exemple, `F` est représenté par 0100**0110** et vaut en effet 0110₂ + 9 
      add  w20, w20, 0x09
 ```
 
-## Gérer les deux types de chiffres
+## 0 à F
 
 En combinant les deux cas possibles, nous pouvons donc extraire la valeur numérique de cette façon:
 
@@ -62,7 +60,7 @@ En combinant les deux cas possibles, nous pouvons donc extraire la valeur numér
 fin:
 ```
 
-Il existe une façon plus cryptique d'y arriver sans utiliser de comparaison. Remarquons
+Il existe une façon (plus cryptique) d'arriver au même résultat _sans utiliser de branchement_. Remarquons
 que le deuxième bit de poids fort vaut 0 pour les chiffres et 1 pour les lettres:
 
 | Caractère | Code décimal | Code binaire |
@@ -79,7 +77,7 @@ Ainsi, ce code génère 00000000₂ = 0 si `w19` est un chiffre, et 00001001₂ 
 ```c
      lsr  w21, w19, 6
      lsl  w22, w21, 3
-     orr  w22, w22, w21
+     orr  w22, w21, w22
 ```
 
 On peut donc extraire la valeur numérique du caractère de cette façon:
@@ -88,9 +86,8 @@ On peut donc extraire la valeur numérique du caractère de cette façon:
      and   w20, w19, 0x0F
      lsr   w21, w19, 6
      lsl   w22, w21, 3
-     orr   w22, w22, w21
+     orr   w22, w21, w22
      add   w20, w20, w22
-fin:
 ```
 
 On peut sauver une ligne de code en combinant deux instructions comme suit:
@@ -98,6 +95,6 @@ On peut sauver une ligne de code en combinant deux instructions comme suit:
 ```c
      and   w20, w19, 0x0F
      lsr   w21, w19, 6
-     orr   w22, w22, w21, lsl 3
+     orr   w22, w21, w21, lsl 3
      add   w20, w20, w22
 ```
