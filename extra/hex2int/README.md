@@ -72,7 +72,7 @@ que le deuxième bit de poids fort vaut 0 pour les chiffres et 1 pour les lettre
 |⁞|⁞|⁞|
 |`F`|70|0**1**000110|
 
-Ainsi, ce code génère 00000000₂ = 0 si `w19` est un chiffre, et 00001001₂ = 9 si `w19` est une lettre:
+Ainsi, le code ci-dessous génère 00000000₂ = 0 si `w19` est un chiffre, et 00001001₂ = 9 si `w19` est une lettre:
 
 ```c
      lsr  w21, w19, 6
