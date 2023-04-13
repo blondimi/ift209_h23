@@ -75,30 +75,32 @@ que le deuxième bit de poids fort vaut 0 pour les chiffres et 1 pour les lettre
 Le code ci-dessous génère 00000000₂ = 0 si `w19` est un chiffre, et 00001001₂ = 9 si `w19` est une lettre:
 
 ```c
-                            // Exemples
-                            // w19 = 00110101 ('5')      w19 = 01000110 ('F')
-     lsr  w21, w19, 6       // w21 = 00000000            w21 = 00000001
-     lsl  w22, w21, 3       // w22 = 00000000            w22 = 00001000
-     orr  w22, w21, w22     // w22 = 00000000 (0)        w22 = 00001001 (9)
+                                 // Exemples
+                                 // w19 = 00110101 ('5')      w19 = 01000110 ('F')
+     lsr  w21, w19, 6            // w21 = 00000000            w21 = 00000001
+     lsl  w22, w21, 3            // w22 = 00000000            w22 = 00001000
+     orr  w22, w21, w22          // w22 = 00000000 (0)        w22 = 00001001 (9)
 ```
 
 On peut donc extraire la valeur numérique du caractère de cette façon:
 
 ```c
-                            // Exemples
-                            // w19 = 00110101 ('5')      w19 = 01000110 ('F')
-     and   w20, w19, 0x0F   // w20 = 00000101 (5)        w20 = 00000110 (6)
-     lsr   w21, w19, 6      // w21 = 00000000            w21 = 00000001
-     lsl   w22, w21, 3      // w22 = 00000000            w22 = 00001000
-     orr   w22, w21, w22    // w22 = 00000000 (0)        w22 = 00001001 (9)
-     add   w20, w20, w22    // w20 = 00000101 (5)        w20 = 00001111 (15)
+                                 // Exemples
+                                 // w19 = 00110101 ('5')      w19 = 01000110 ('F')
+     and   w20, w19, 0x0F        // w20 = 00000101 (5)        w20 = 00000110 (6)
+     lsr   w21, w19, 6           // w21 = 00000000            w21 = 00000001
+     lsl   w22, w21, 3           // w22 = 00000000            w22 = 00001000
+     orr   w22, w21, w22         // w22 = 00000000 (0)        w22 = 00001001 (9)
+     add   w20, w20, w22         // w20 = 00000101 (5)        w20 = 00001111 (15)
 ```
 
 On peut sauver une ligne de code en combinant deux instructions comme suit:
 
 ```c
-     and   w20, w19, 0x0F
-     lsr   w21, w19, 6
-     orr   w22, w21, w21, lsl 3
-     add   w20, w20, w22
+                                 // Exemples
+                                 // w19 = 00110101 ('5')      w19 = 01000110 ('F')
+     and   w20, w19, 0x0F        // w20 = 00000101 (5)        w20 = 00000110 (6)
+     lsr   w21, w19, 6           // w21 = 00000000            w21 = 00000001
+     orr   w22, w21, w21, lsl 3  // w22 = 00000000 (0)        w22 = 00001001 (9)
+     add   w20, w20, w22         // w20 = 00000101 (5)        w20 = 00001111 (15)
 ```
