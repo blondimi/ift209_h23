@@ -25,8 +25,8 @@ Les caractrères `0` à `9` sont représentés comme suit:
 Remarquons que les quatre bits de poids faible du code binaire correspondent exactement à la valeur numérique du chiffre.
 Par exemple, `9` est représenté par 0011**1001** et vaut en effet 1001₂ = 9. Ainsi, la valeur numérique peut être obtenue avec:
 
-```
-and  w20, w19, 0x0F
+```c
+     and  w20, w19, 0x0F
 ```
 
 # A à F
@@ -45,7 +45,59 @@ Les caractrères `A` à `F` sont représentés comme suit:
 Remarquons que les quatre bits de poids faible du code binaire correspondent à la valeur numérique du chiffre déphasée de 9.
 Par exemple, `F` est représenté par 0100**0110** et vaut en effet 0110₂ + 9 = 6 + 9 = 15. Ainsi, la valeur numérique peut être obtenue avec:
 
+```c
+     and  w20, w19, 0x0F
+     add  w20, w20, 0x09
 ```
-and  w20, w19, 0x0F
-add  w20, w20, 0x09
+
+## Gérer les deux types de chiffres
+
+En combinant les deux cas possibles, nous pouvons donc extraire la valeur numérique de cette façon:
+
+```c
+     and   w20, w19, 0x0F
+     cmp   w19, 65
+     b.lo  fin
+     add   w20, w20, 0x09
+fin:
+```
+
+Il existe une façon plus cryptique d'y arriver sans utiliser de comparaison. Remarquons
+que le deuxième bit de poids fort vaut 0 pour les chiffres et 1 pour les lettres:
+
+| Caractère | Code décimal | Code binaire |
+|---|---|---|
+|`0`|48|0**0**110000|
+|⁞|⁞|⁞|
+|`9`|57|0**0**111001|
+|`A`|65|0**1**000001|
+|⁞|⁞|⁞|
+|`F`|70|0**1**000110|
+
+Ainsi, ce code génère 00000000₂ = 0 si `w19` est un chiffre, et 00001001₂ = 9 si `w19` est une lettre:
+
+```c
+     lsr  w21, w19, 6
+     lsl  w22, w21, 3
+     orr  w22, w22, w21
+```
+
+On peut donc extraire la valeur numérique du caractère de cette façon:
+
+```c
+     and   w20, w19, 0x0F
+     lsr   w21, w19, 6
+     lsl   w22, w21, 3
+     orr   w22, w22, w21
+     add   w20, w20, w22
+fin:
+```
+
+On peut sauver une ligne de code en combinant deux instructions comme suit:
+
+```c
+     and   w20, w19, 0x0F
+     lsr   w21, w19, 6
+     orr   w22, w22, w21, lsl 3
+     add   w20, w20, w22
 ```
