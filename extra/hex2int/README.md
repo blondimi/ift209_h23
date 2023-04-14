@@ -8,7 +8,7 @@ Voyons comment obtenir la valeur numérique du caractère dans `w20`. Par exempl
 Les caractrères `0` à `9` sont représentés comme suit:
 
 | Caractère | Code décimal | Code binaire |
-|---|---|---|
+|:-:|:-:|:-:|
 |`0`|48|00110000|
 |`1`|49|00110001|
 |`2`|50|00110010|
@@ -32,7 +32,7 @@ Par exemple, `9` est représenté par 0011**1001** et vaut en effet 1001₂ = 9.
 Les caractrères `A` à `F` sont représentés comme suit:
 
 | Caractère | Code décimal | Code binaire |
-|---|---|---|
+|:-:|:-:|:-:|
 |`A`|65|01000001|
 |`B`|66|01000010|
 |`C`|67|01000011|
@@ -64,12 +64,12 @@ Il existe une façon (plus cryptique) d'arriver au même résultat _sans utilise
 que le deuxième bit de poids fort vaut 0 pour les chiffres et 1 pour les lettres:
 
 | Caractère | Code décimal | Code binaire |
-|---|---|---|
+|:-:|:-:|:-:|
 |`0`|48|0**0**110000|
-|⁞|⁞|⁞|
+|⋮|⋮|⋮|
 |`9`|57|0**0**111001|
 |`A`|65|0**1**000001|
-|⁞|⁞|⁞|
+|⋮|⋮|⋮|
 |`F`|70|0**1**000110|
 
 Le code ci-dessous génère 00000000₂ = 0 si `w19` est un chiffre, et 00001001₂ = 9 si `w19` est une lettre:
